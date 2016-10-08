@@ -45,7 +45,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>pl.ubytes.net.Main</mainClass>
+                            <mainClass>pl.ubytes.getter.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

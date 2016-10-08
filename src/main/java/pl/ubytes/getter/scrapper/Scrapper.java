@@ -1,6 +1,6 @@
-package pl.ubytes.net.scrapper;
+package pl.ubytes.getter.scrapper;
 
-import pl.ubytes.net.domain.Video;
+import pl.ubytes.getter.domain.Video;
 
 import java.io.IOException;
 import java.util.List;

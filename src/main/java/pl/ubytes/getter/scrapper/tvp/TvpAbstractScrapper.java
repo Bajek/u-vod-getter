@@ -1,8 +1,8 @@
-package pl.ubytes.net.scrapper.tvp;
+package pl.ubytes.getter.scrapper.tvp;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import pl.ubytes.net.scrapper.Scrapper;
+import pl.ubytes.getter.scrapper.Scrapper;
 
 /**
  * Created by Bartłomiej on 29.12.2015.

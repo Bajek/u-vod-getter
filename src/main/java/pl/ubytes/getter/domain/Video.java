@@ -1,4 +1,4 @@
-package pl.ubytes.net.domain;
+package pl.ubytes.getter.domain;
 
 /**
  * Created by Bajek

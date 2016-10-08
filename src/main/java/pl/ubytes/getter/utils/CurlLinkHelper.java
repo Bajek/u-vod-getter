@@ -1,6 +1,6 @@
-package pl.ubytes.net.utils;
+package pl.ubytes.getter.utils;
 
-import pl.ubytes.net.domain.Video;
+import pl.ubytes.getter.domain.Video;
 
 import java.util.List;
 

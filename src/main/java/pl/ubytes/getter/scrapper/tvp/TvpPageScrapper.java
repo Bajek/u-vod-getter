@@ -1,4 +1,4 @@
-package pl.ubytes.net.scrapper.tvp;
+package pl.ubytes.getter.scrapper.tvp;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -6,8 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import pl.ubytes.net.domain.Video;
-import pl.ubytes.net.scrapper.Scrapper;
+import pl.ubytes.getter.domain.Video;
 
 import java.io.File;
 import java.io.IOException;
