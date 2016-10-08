@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Bartłomiej on 08.10.2016.
+ * Created by Bajek on 08.10.2016.
  */
 public class HttpTvpPageScrapper extends TvpAbstractScrapper {
 
