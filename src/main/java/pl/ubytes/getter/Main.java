@@ -1,5 +1,7 @@
 package pl.ubytes.getter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.ubytes.getter.domain.Video;
 import pl.ubytes.getter.scrapper.Scrapper;
 import pl.ubytes.getter.scrapper.tvp.TvpPageScrapper;
@@ -14,7 +16,14 @@ import java.util.List;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    final private static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
+    public static void main(String... args) throws IOException {
+        LOGGER.info("Application has been started with params {}", args.toString());
+        if (args.length < 1) {
+            LOGGER.warn("Please specify input value.");
+            System.exit(0);
+        }
         Scrapper scrapper = new TvpPageScrapper(args[0]);
         List<Video> videos = scrapper.parse();
         CurlLinkHelper.printCurlLinks(videos);

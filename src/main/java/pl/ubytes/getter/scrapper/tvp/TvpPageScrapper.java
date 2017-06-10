@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.ubytes.getter.domain.Video;
 
 import java.io.File;
@@ -18,6 +20,8 @@ import java.util.List;
  * Date 27.12.2015.
  */
 public class TvpPageScrapper extends TvpAbstractScrapper {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(TvpPageScrapper.class);
 
     private final String PATERN = "section#seriale > ul > li";
     private final String ADDRESS = "http://www.tvp.pl/shared/cdn/tokenizer_v2.php?object_id=";
@@ -38,27 +42,40 @@ public class TvpPageScrapper extends TvpAbstractScrapper {
             String id = subElement.attr("href");
             String[] splitted = id.split("/");
             id = splitted[splitted.length - 2];
-            System.out.println("Processing id: " + id);
-            String json = Jsoup.connect(ADDRESS + id).get().select("body").text();
-            JSONObject obj = new JSONObject(json);
-            if (obj.has("formats")) {
-                Object formatsObject = obj.get("formats");
-                Video video = new Video();
-                video.setTitle(obj.get("title").toString());
-                JSONObject jsonVideo;
-                if (formatsObject instanceof JSONArray) {
-                    jsonVideo = this.getWithBiggestBitrate((JSONArray)formatsObject);
-                } else {
-                    jsonVideo = (JSONObject)formatsObject;
-                }
-                video.setUrl(jsonVideo.get("url").toString());
-                video.setBitrate(Integer.valueOf(jsonVideo.get("totalBitrate").toString()));
+            final Video video = getVideo(id);
+            if (video != null) {
                 videos.add(video);
-            } else {
-                System.out.println("Incorrect json. Does not have formats.");
             }
         }
         return videos;
     }
 
+
+    private Video getVideo(String id) throws IOException {
+        LOGGER.info("Processing ID: {}", id);
+        String json = Jsoup.connect(ADDRESS + id).get().select("body").text();
+        JSONObject obj = new JSONObject(json);
+        Video video = null;
+        if (obj.has("formats")) {
+            Object formatsObject = obj.get("formats");
+            video = new Video();
+            video.setTitle(obj.get("title").toString());
+            JSONObject jsonVideo;
+            if (formatsObject instanceof JSONArray) {
+                jsonVideo = this.getWithBiggestBitrate((JSONArray) formatsObject);
+            } else {
+                jsonVideo = (JSONObject) formatsObject;
+            }
+            video.setUrl(jsonVideo.get("url").toString());
+            video.setBitrate(Integer.valueOf(jsonVideo.get("totalBitrate").toString()));
+        } else {
+            System.out.println("Incorrect json. Does not have formats.");
+        }
+
+        return video;
+    }
+
+
 }
+
+
