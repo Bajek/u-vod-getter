@@ -10,10 +10,6 @@ import pl.ubytes.getter.utils.CurlLinkHelper;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Bajek
- * Date 27.12.2015.
- */
 public class Main {
 
     final private static Logger LOGGER = LoggerFactory.getLogger(Main.class);

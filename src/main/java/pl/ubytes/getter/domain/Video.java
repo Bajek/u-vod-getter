@@ -1,9 +1,5 @@
 package pl.ubytes.getter.domain;
 
-/**
- * Created by Bajek
- * Date 28.12.2015.
- */
 public class Video {
 
     private String title;

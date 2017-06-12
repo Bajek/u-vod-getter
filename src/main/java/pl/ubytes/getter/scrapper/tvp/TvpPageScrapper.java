@@ -15,15 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created Bajek
- * Date 27.12.2015.
- */
 public class TvpPageScrapper extends TvpAbstractScrapper {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(TvpPageScrapper.class);
 
-    private final String PATERN = "section#seriale > ul > li";
+    private final String PATERN = "div.subCategoryMobile > div > div";
     private final String ADDRESS = "http://www.tvp.pl/shared/cdn/tokenizer_v2.php?object_id=";
     private String path;
 
@@ -35,13 +31,9 @@ public class TvpPageScrapper extends TvpAbstractScrapper {
     public List<Video> parse() throws IOException {
         Document document = Jsoup.parse(new File(this.path), "UTF-8");
         Elements elements = document.select(PATERN);
-        List<Video> videos = new ArrayList();
+        List<Video> videos = new ArrayList<Video>();
         for (Element element : elements) {
-            Element subElement = element.select("div.item > div.itemContent > div > ul > li")
-                    .get(1).select("li > strong.shortTitle > a").get(0);
-            String id = subElement.attr("href");
-            String[] splitted = id.split("/");
-            id = splitted[splitted.length - 2];
+            String id = element.select("div").attr("data-id");
             final Video video = getVideo(id);
             if (video != null) {
                 videos.add(video);
