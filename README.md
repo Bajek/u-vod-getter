@@ -2,4 +2,4 @@
 App to get VOD links from TVP
 
 # Usage
-u-vod-getter \<name of the html file\>
+java -jar u-vod-getter-\<version\>.jar \<name of the html file\>
