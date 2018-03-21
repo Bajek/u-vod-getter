@@ -11,6 +11,7 @@ public class CurlLinkHelper {
             System.out.println(video.getUrl() + " -o " + video.getTitle()
                     .replace('.', '_')
                     .replace(',', '_')
+                    .replace('?', '_')
                     .replace(' ', '_'));
         }
     }
