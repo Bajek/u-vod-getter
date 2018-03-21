@@ -6,4 +6,4 @@ java -jar u-vod-getter-\<version\>.jar \<name of the html file\>
 
 
 #### Build
-Build status: ![travis-ci](https://travis-ci.org/Bajek/u-vod-getter.svg?branch=master)
+[![Build Status](https://travis-ci.org/Bajek/u-vod-getter.svg?branch=master)](https://travis-ci.org/Bajek/u-vod-getter)
