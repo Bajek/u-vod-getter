@@ -20,9 +20,10 @@ public abstract class TvpAbstractScrapper implements Scrapper {
         Integer maxBitrate = 0;
         for (int i = 0; i < formats.length(); i++) {
             JSONObject currentFormat = formats.getJSONObject(i);
-            Integer curretBitrate = Integer.valueOf(currentFormat.get("totalBitrate").toString());
-            if (curretBitrate > maxBitrate) {
-                maxBitrate = curretBitrate;
+            Integer currentBitrate = Integer.valueOf(currentFormat.get("totalBitrate").toString());
+            String mimeType = currentFormat.get("mimeType").toString();
+            if (currentBitrate > maxBitrate && mimeType.contains("video")) {
+                maxBitrate = currentBitrate;
                 objectWithBiggestBitrate = currentFormat;
             }
         }
