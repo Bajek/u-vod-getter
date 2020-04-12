@@ -18,6 +18,7 @@ public class CurlLinkHelper {
                     .replace('?', '_')
                     .replace('/', '_')
                     .replace(' ', '_')
+                    .replace('–', '_')
                     +  " " + video.getUrl());
         }
     }
