@@ -23,7 +23,7 @@ public class Main {
             LOGGER.warn("Please specify input value.");
             System.exit(0);
         }
-        Scrapper scrapper = new HttpTvpPageScrapper(args[0]);
+        Scrapper scrapper = new HttpTvpPageScrapper(args[0], args.length > 1 ? args[1] : null);
         List<Video> videos = scrapper.parse();
         CurlLinkHelper.printCurlLinks(videos);
     }
