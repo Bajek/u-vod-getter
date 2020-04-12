@@ -1,5 +1,6 @@
 package pl.ubytes.getter.scrapper.tvp;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -42,7 +43,7 @@ public abstract class TvpAbstractScrapper implements Scrapper {
         if (obj.has("formats")) {
             Object formatsObject = obj.get("formats");
             video = new Video();
-            video.setTitle(obj.get("title").toString());
+            video.setTitle(StringUtils.stripAccents(obj.get("title").toString()));
             JSONObject jsonVideo;
             if (formatsObject instanceof JSONArray) {
                 jsonVideo = this.getWithBiggestBitrate((JSONArray) formatsObject);
