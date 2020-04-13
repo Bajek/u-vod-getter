@@ -1,4 +1,15 @@
 language: java
+install: true
+os: linux
+dist: bionic
 jdk:
-  - oraclejdk8
-script: mvn clean install
+  - openjdk11
+  - oraclejdk11
+addons:
+  sonarcloud:
+    organization: bajek
+    token:
+      secure: pJK/zwXeEsLFwRDttU7ei5VnHqPQ4oLPjPhbKRVqrlvnKq6467lWgULx9PKYFZtT55cDrUMQvFi5s98CmgUm3cItoBslJjsWXWO4UdWsQ4JSw6T0FiLvYbb3viijHYEfHzjLNDS3Mq825KSQG6SkrTI6d5yYGIDSfmW8BcaaN5Q2zfP4zIG8ydfZu8Hw/yL6B7zKPBvu2n2e0nIllUq2j5k5q/El6XK4d3aOoyZ+FRGB3S9trB8YZy7laUvW7blM/k1osDYAspYYd7KNw9cuYarSEMiWUGI+IHno5vdcsup8Xvc7bSUHd7LZZUVxgcjdaDz2N1iqZLXASN6+SKctPya48lxf0aOU7gU2C7pRvPKhtcfnqo2HArtiH1v1RAhWi+2KlAiVH6Q7y/wfX6/ypPBfovJsqX9mst0FJgn78ekLKflLr2v+UTA8oxc/iL9gpILkFD5HRqRpWk5HEmnYqkgEMwWpAX/wocYjZGl46NZ82FFkvQJSwfSrj/9QIIEAHmAwBw6PYllKV9vbQIlVbSjwq1x6pu0io7sKRW0VsrbX4laBfyBMUVLCAJSxJdhxsv8rZZYQJWzsvrf1qEy1lnTdO9TtXTLix12yiA7nNMnfqe+l7eBUIOJW0/KxKY2XTG46V2KI9JeYwn6nLsFhoJLFQb6/UFzhhz77UuwSjtM=
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=Bajek_u-vod-getter
