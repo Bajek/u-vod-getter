@@ -21,6 +21,9 @@ public class Main {
         }
         if (args.length < 1) {
             LOGGER.warn("Please specify input value.");
+            LOGGER.info("First parameter (required): URL to parse");
+            LOGGER.info("Second parameter (optional): Season number");
+            LOGGER.info("Example: u-vod-getter https://my-url 15");
             System.exit(0);
         }
         Scrapper scrapper = new HttpTvpPageScrapper(args[0], args.length > 1 ? args[1] : null);
@@ -28,3 +31,4 @@ public class Main {
         CurlLinkHelper.printCurlLinks(videos);
     }
 }
+

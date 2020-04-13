@@ -20,4 +20,12 @@ class TvpAbstractScrapperTest {
 
         assertEquals("odc. 256 – Wlasciwe relacje", title, "Should have title without accent characters.");
     }
+
+    @Test
+    void testShouldRemoveSpecialCharacters() {
+        String inputString = "odc _!@#$%^&*()_123_/\\,.;' ";
+        inputString = inputString.replaceAll("[^A-Za-z0-9 ]", " ")
+                .trim().replaceAll(" +", " ");
+        System.out.println(inputString);
+    }
 }
