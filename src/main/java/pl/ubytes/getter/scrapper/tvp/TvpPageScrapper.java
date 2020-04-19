@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TvpPageScrapper extends TvpAbstractScrapper {
+public class TvpPageScrapper extends AbstractTvpScrapper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TvpPageScrapper.class);
 

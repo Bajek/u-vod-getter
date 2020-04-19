@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Comparator;
 
-public class CurlLinkHelper {
+public final class CurlLinkHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CurlLinkHelper.class);
 

@@ -11,17 +11,17 @@ import pl.ubytes.getter.scrapper.Scrapper;
 
 import java.io.IOException;
 
-public abstract class TvpAbstractScrapper implements Scrapper {
+public abstract class AbstractTvpScrapper implements Scrapper {
 
     protected static final String ADDRESS = "http://www.tvp.pl/shared/cdn/tokenizer_v2.php?object_id=";
-    private static final Logger LOGGER = LoggerFactory.getLogger(TvpAbstractScrapper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTvpScrapper.class);
 
     protected JSONObject getWithBiggestBitrate(JSONArray formats) {
         JSONObject objectWithBiggestBitrate = null;
-        Integer maxBitrate = 0;
+        int maxBitrate = 0;
         for (int i = 0; i < formats.length(); i++) {
             JSONObject currentFormat = formats.getJSONObject(i);
-            Integer currentBitrate = Integer.valueOf(currentFormat.get("totalBitrate").toString());
+            int currentBitrate = Integer.parseInt(currentFormat.get("totalBitrate").toString());
             String mimeType = currentFormat.get("mimeType").toString();
             if (currentBitrate > maxBitrate && mimeType.contains("video")) {
                 maxBitrate = currentBitrate;
@@ -35,11 +35,11 @@ public abstract class TvpAbstractScrapper implements Scrapper {
         LOGGER.info("Processing ID: {}", id);
         String json = Jsoup.connect(ADDRESS + id).get().select("body").text();
         JSONObject obj = new JSONObject(json);
-        Video video = null;
         if ("NO_PREMIUM_ACCESS".equals(obj.get("status"))) {
             LOGGER.warn("Premium episode.");
-            return video;
+            return null;
         }
+        Video video = null;
         if (obj.has("formats")) {
             Object formatsObject = obj.get("formats");
             video = new Video();
