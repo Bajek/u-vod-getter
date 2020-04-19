@@ -20,7 +20,7 @@ public class CurlLinkHelper {
     }
 
     public static void printCurlLinks(Collection<Video> videos) throws IOException {
-        try (PrintWriter fileWriter = new PrintWriter("links")) {
+        try (PrintWriter fileWriter = new PrintWriter("links", StandardCharsets.UTF_8.name())) {
             PrintWriter printWriter = new PrintWriter(fileWriter);
             videos.stream().sorted(Comparator.comparing(Video::getTitle)).forEach((Video video) -> printWriter.println(getUrl(video)));
             printWriter.close();
