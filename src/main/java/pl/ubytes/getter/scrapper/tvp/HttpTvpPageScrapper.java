@@ -12,22 +12,23 @@ import java.util.List;
 
 public class HttpTvpPageScrapper extends TvpAbstractScrapper {
 
-    private String pattern = "div.odcinki__item";
+    private String oldPattern = "div.strefa-abo__item";
+    private String newPattern = "div.odcinki__item";
+
     private String path;
 
     public HttpTvpPageScrapper(String path, String season) {
         this.path = path;
         if (season != null) {
-            pattern = pattern + ".s" + season;
+            newPattern = newPattern + ".s" + season;
         }
     }
 
-    public List<Video> parse() throws IOException {
+    public List<Video> parseNewPage(Document document) throws IOException {
 
-        Document document = Jsoup.connect(path).get();
-        Elements elements = document.select(pattern);
+        Elements elements = document.select(newPattern);
         List<Video> videos = new ArrayList<>();
-        for (Element element: elements) {
+        for (Element element : elements) {
             String href = element.select("a").attr("href");
             href = href.replace("http://vod.tvp.pl/", "");
             String[] spplitted = href.split("/");
@@ -37,5 +38,31 @@ public class HttpTvpPageScrapper extends TvpAbstractScrapper {
             }
         }
         return videos;
+    }
+
+    private List<Video> parseOldPage(Document document) throws IOException {
+        Elements elements = document.select(oldPattern);
+        List<Video> videos = new ArrayList<>();
+        for (Element element : elements) {
+            String href = element.select("a").attr("href");
+            String[] spplitted = href.split(",");
+            Video video = this.getVideo(spplitted[spplitted.length - 1]);
+            if (video != null) {
+                videos.add(video);
+            }
+        }
+        return videos;
+    }
+
+    @Override
+    public List<Video> parse() throws IOException {
+        Document document = Jsoup.connect(path).get();
+        Elements elements = document.select(newPattern);
+
+        if (!elements.isEmpty()) {
+            return parseNewPage(document);
+        } else {
+            return parseOldPage(document);
+        }
     }
 }

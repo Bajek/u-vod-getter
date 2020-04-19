@@ -16,8 +16,8 @@ public class CurlLinkHelper {
         videos.stream().sorted(Comparator.comparing(Video::getTitle))
                 .forEach((Video video) ->
                         System.out.println("wget -O " + video.getTitle()
-                                .replaceAll("[^A-Za-z0-9 ]", " ")
-                                .trim().replaceAll(" +", " ")
+                                .replaceAll("[^A-Za-z0-9]", "_")
+                                .trim().replaceAll("_+", "_")
                                 + " " + video.getUrl()));
 
     }
