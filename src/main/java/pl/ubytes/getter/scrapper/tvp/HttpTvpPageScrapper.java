@@ -4,6 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.ubytes.getter.domain.Video;
 
 import java.io.IOException;
@@ -11,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HttpTvpPageScrapper extends TvpAbstractScrapper {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpTvpPageScrapper.class);
+
 
     private String oldPattern = "div.strefa-abo__item";
     private String newPattern = "div.odcinki__item";
@@ -60,8 +65,10 @@ public class HttpTvpPageScrapper extends TvpAbstractScrapper {
         Elements elements = document.select(newPattern);
 
         if (!elements.isEmpty()) {
+            LOGGER.info("Using new page format.");
             return parseNewPage(document);
         } else {
+            LOGGER.info("Using old page format.");
             return parseOldPage(document);
         }
     }
